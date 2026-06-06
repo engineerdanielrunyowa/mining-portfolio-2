@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import PostPageClient from './PostPageClient';
 
+export const runtime = 'edge';
+
 interface PageProps {
   params: Promise<{
     slug: string;
