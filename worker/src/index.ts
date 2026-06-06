@@ -10,41 +10,51 @@ export default {
     const url = new URL(request.url);
     const pathname = url.pathname;
 
-    // Handle CORS preflight
+    // CORS preflight
     if (request.method === 'OPTIONS') {
       return handleOptions(env, request);
     }
 
     try {
-      // Auth routes (login/logout)
+      // 1. AUTH routes (login/logout only)
       const authResponse = await handleAuthRoutes(request, env, pathname);
       if (authResponse) return authResponse;
 
-      // Upload routes (admin file uploads)
-      const uploadResponse = await handleUploadRoutes(request, env, pathname);
-      if (uploadResponse) return uploadResponse;
+      // 2. PUBLIC routes (NO AUTH EVER)
+      const publicResponse = await handlePublicRoutes(request, env, pathname);
+      if (publicResponse) return publicResponse;
 
-      // Admin routes (authenticated CRUD)
+      // 3. ADMIN routes (protected only here)
       if (pathname.startsWith('/api/admin/')) {
         const adminResponse = await handleAdminRoutes(request, env, pathname);
         if (adminResponse) return adminResponse;
       }
 
-      // Public routes
-      const publicResponse = await handlePublicRoutes(request, env, pathname);
-      if (publicResponse) return publicResponse;
+      // 4. UPLOAD routes (admin only)
+      const uploadResponse = await handleUploadRoutes(request, env, pathname);
+      if (uploadResponse) return uploadResponse;
 
       // 404 fallback
       return new Response(JSON.stringify({ error: 'Not found' }), {
         status: 404,
-        headers: { 'Content-Type': 'application/json', ...corsHeaders(env, request) },
+        headers: {
+          'Content-Type': 'application/json',
+          ...corsHeaders(env, request),
+        },
       });
+
     } catch (err: any) {
       return new Response(
-        JSON.stringify({ error: 'Internal server error', details: err.message }),
+        JSON.stringify({
+          error: 'Internal server error',
+          details: err.message,
+        }),
         {
           status: 500,
-          headers: { 'Content-Type': 'application/json', ...corsHeaders(env, request) },
+          headers: {
+            'Content-Type': 'application/json',
+            ...corsHeaders(env, request),
+          },
         }
       );
     }
