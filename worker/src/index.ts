@@ -16,35 +16,74 @@ export default {
     }
 
     try {
-      // Auth routes (login/logout)
-      const authResponse = await handleAuthRoutes(request, env, pathname);
+      // Auth routes
+      const authResponse = await handleAuthRoutes(
+        request,
+        env,
+        pathname
+      );
       if (authResponse) return authResponse;
 
-      // Upload routes (admin file uploads)
-      const uploadResponse = await handleUploadRoutes(request, env, pathname);
-      if (uploadResponse) return uploadResponse;
+      // Only process upload routes for upload endpoints
+      const isUploadRoute =
+        pathname === '/api/admin/upload/image' ||
+        pathname === '/api/admin/upload/svg' ||
+        pathname === '/api/admin/cv/upload' ||
+        pathname === '/api/admin/storage/file';
 
-      // Admin routes (authenticated CRUD)
+      if (isUploadRoute) {
+        const uploadResponse = await handleUploadRoutes(
+          request,
+          env,
+          pathname
+        );
+
+        if (uploadResponse) return uploadResponse;
+      }
+
+      // Admin routes
       if (pathname.startsWith('/api/admin/')) {
-        const adminResponse = await handleAdminRoutes(request, env, pathname);
+        const adminResponse = await handleAdminRoutes(
+          request,
+          env,
+          pathname
+        );
+
         if (adminResponse) return adminResponse;
       }
 
       // Public routes
-      const publicResponse = await handlePublicRoutes(request, env, pathname);
+      const publicResponse = await handlePublicRoutes(
+        request,
+        env,
+        pathname
+      );
+
       if (publicResponse) return publicResponse;
 
-      // 404 fallback
-      return new Response(JSON.stringify({ error: 'Not found' }), {
-        status: 404,
-        headers: { 'Content-Type': 'application/json', ...corsHeaders(env, request) },
-      });
+      // 404
+      return new Response(
+        JSON.stringify({ error: 'Not found' }),
+        {
+          status: 404,
+          headers: {
+            'Content-Type': 'application/json',
+            ...corsHeaders(env, request),
+          },
+        }
+      );
     } catch (err: any) {
       return new Response(
-        JSON.stringify({ error: 'Internal server error', details: err.message }),
+        JSON.stringify({
+          error: 'Internal server error',
+          details: err?.message || 'Unknown error',
+        }),
         {
           status: 500,
-          headers: { 'Content-Type': 'application/json', ...corsHeaders(env, request) },
+          headers: {
+            'Content-Type': 'application/json',
+            ...corsHeaders(env, request),
+          },
         }
       );
     }
