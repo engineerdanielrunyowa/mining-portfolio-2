@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { Calendar, ChevronDown, ChevronUp } from 'lucide-react';
+import { Calendar, FolderOpen, ChevronDown, ChevronUp } from 'lucide-react';
 import type { Project } from '@/lib/types';
 import { getProjects } from '@/lib/api';
 import { mockProjects } from '@/lib/mockData';
@@ -18,7 +18,6 @@ function ProjectCard({ project }: { project: Project }) {
 
   return (
     <div className="bg-white dark:bg-dark-bg-secondary rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-all duration-300 border border-bg-secondary/50 dark:border-dark-bg/50 group">
-
       {project.image_url && (
         <div className="relative h-48 overflow-hidden">
           <img
@@ -34,7 +33,6 @@ function ProjectCard({ project }: { project: Project }) {
           )}
         </div>
       )}
-
       {!project.image_url && project.category && (
         <div className="px-6 pt-5">
           <span className="inline-block px-3 py-1 bg-accent-secondary/10 text-accent-secondary text-xs font-medium rounded-full">
@@ -42,12 +40,10 @@ function ProjectCard({ project }: { project: Project }) {
           </span>
         </div>
       )}
-
       <div className="p-5 sm:p-6">
         <h3 className="text-lg font-semibold text-accent-primary dark:text-white mb-2">
           {project.title}
         </h3>
-
         {(project.start_date || project.end_date) && (
           <div className="flex items-center gap-1.5 text-xs text-text-main/50 dark:text-dark-text/40 mb-3">
             <Calendar className="w-3.5 h-3.5" />
@@ -57,13 +53,9 @@ function ProjectCard({ project }: { project: Project }) {
             </span>
           </div>
         )}
-
         <p className="text-sm text-text-main/70 dark:text-dark-text/60 leading-relaxed whitespace-pre-line">
-          {isLong && !expanded
-            ? description.substring(0, 200) + '...'
-            : description}
+          {isLong && !expanded ? description.substring(0, 200) + '...' : description}
         </p>
-
         {isLong && (
           <button
             onClick={() => setExpanded(!expanded)}
@@ -98,35 +90,21 @@ export default function Projects({ demoMode }: ProjectsProps) {
         setLoading(false);
         return;
       }
-
       try {
         const res = await getProjects();
-
-        // ✅ FIX IS HERE
-        const projectData =
-          (res as any)?.data?.projects ?? (res as any)?.data ?? [];
-
-        setProjects(projectData);
+        setProjects(res.data);
       } catch (err) {
         console.error('Failed to load projects:', err);
-        setProjects([]);
       } finally {
         setLoading(false);
       }
     }
-
     load();
   }, [demoMode]);
 
   if (loading || projects.length === 0) return null;
 
-  const categories = [
-    'All',
-    ...Array.from(
-      new Set(projects.map((p) => p.category).filter(Boolean))
-    ),
-  ];
-
+  const categories = ['All', ...Array.from(new Set(projects.map((p) => p.category).filter(Boolean)))];
   const filtered =
     activeCategory === 'All'
       ? projects
@@ -135,7 +113,6 @@ export default function Projects({ demoMode }: ProjectsProps) {
   return (
     <section id="projects" className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
-
         <div
           ref={ref}
           className={`transition-all duration-700 ${
@@ -145,7 +122,6 @@ export default function Projects({ demoMode }: ProjectsProps) {
           <h2 className="text-2xl sm:text-3xl font-bold text-accent-primary dark:text-accent-secondary mb-3 text-center">
             Projects
           </h2>
-
           <p className="text-text-main/60 dark:text-dark-text/50 text-sm sm:text-base text-center mb-8 max-w-2xl mx-auto">
             A selection of mining engineering projects spanning open-pit, underground, and consulting engagements.
           </p>
@@ -175,7 +151,6 @@ export default function Projects({ demoMode }: ProjectsProps) {
             <ProjectCard key={project.id} project={project} />
           ))}
         </div>
-
       </div>
     </section>
   );
