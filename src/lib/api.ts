@@ -3,38 +3,46 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL || '';
 async function fetchAPI<T>(endpoint: string, options?: RequestInit): Promise<T> {
   const res = await fetch(`${API_URL}${endpoint}`, {
     ...options,
+    credentials: 'include', // 🔥 CRITICAL FIX
     headers: {
       'Content-Type': 'application/json',
       ...options?.headers,
     },
   });
+
   if (!res.ok) {
     const error = await res.text();
     throw new Error(error || `API error: ${res.status}`);
   }
+
   return res.json();
 }
 
 export async function getProfile() {
-  return fetchAPI<{ data: import('./types').Profile }>('/api/profile');
+  const res = await fetchAPI<{ data: any }>('/api/profile');
+  return res.data;
 }
 
 export async function getPosts(page = 1, limit = 10) {
-  return fetchAPI<{ data: import('./types').PaginatedPosts }>(
+  const res = await fetchAPI<{ data: any }>(
     `/api/posts?page=${page}&limit=${limit}`
   );
+  return res.data;
 }
 
 export async function getPostBySlug(slug: string) {
-  return fetchAPI<{ data: import('./types').Post }>(`/api/posts/${slug}`);
+  const res = await fetchAPI<{ data: any }>(`/api/posts/${slug}`);
+  return res.data;
 }
 
 export async function getSpecialisations() {
-  return fetchAPI<{ data: import('./types').Specialisation[] }>('/api/specialisations');
+  const res = await fetchAPI<{ data: any[] }>('/api/specialisations');
+  return res.data;
 }
 
 export async function getProjects() {
-  return fetchAPI<{ data: import('./types').Project[] }>('/api/projects');
+  const res = await fetchAPI<{ data: any[] }>('/api/projects');
+  return res.data;
 }
 
 export async function submitContact(data: {
