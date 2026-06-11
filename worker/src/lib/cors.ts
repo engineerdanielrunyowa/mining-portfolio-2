@@ -2,11 +2,10 @@ import type { Env } from '../types';
 
 export function corsHeaders(env: Env, request: Request): Record<string, string> {
   const origin = request.headers.get('Origin') || '';
-  const allowed = env.ALLOWED_ORIGIN || '*';
+  const allowed = env.ALLOWED_ORIGIN || 'https://danielrunyowa.pages.dev';
 
   // Allow the configured origin or localhost for dev
   const isAllowed =
-    allowed === '*' ||
     origin === allowed ||
     origin.includes('localhost') ||
     origin.includes('127.0.0.1');
