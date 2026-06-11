@@ -37,7 +37,6 @@ export default {
           env,
           pathname
         );
-
         if (uploadResponse) return uploadResponse;
       }
 
@@ -48,7 +47,6 @@ export default {
           env,
           pathname
         );
-
         if (adminResponse) return adminResponse;
       }
 
@@ -58,7 +56,6 @@ export default {
         env,
         pathname
       );
-
       if (publicResponse) return publicResponse;
 
       // 404
