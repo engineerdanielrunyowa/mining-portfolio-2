@@ -119,6 +119,20 @@ export default function Projects({ demoMode }: ProjectsProps) {
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
         >
+          <div className="text-center mb-4">
+  <span className="inline-block px-4 py-1 rounded-full bg-accent-secondary/10 text-accent-secondary text-sm font-semibold tracking-wide uppercase">
+    Mining Engineering Portfolio
+  </span>
+
+  <h1 className="mt-3 text-3xl sm:text-4xl lg:text-5xl font-bold text-accent-primary dark:text-white">
+    Projects We Have Successfully Delivered
+  </h1>
+
+  <p className="mt-3 text-text-main/60 dark:text-dark-text/50 max-w-3xl mx-auto">
+    Showcasing practical mining solutions, technical studies, operational improvements,
+    and engineering contributions across a range of mining projects.
+  </p>
+</div>
           <h2 className="text-2xl sm:text-3xl font-bold text-accent-primary dark:text-accent-secondary mb-3 text-center">
             Projects
           </h2>
