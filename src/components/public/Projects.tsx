@@ -112,46 +112,50 @@ export default function Projects({ demoMode }: ProjectsProps) {
 
   return (
     <section id="projects" className="py-16 sm:py-20 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-7xl mx-auto">
-        <div
-          ref={ref}
-          className={`transition-all duration-700 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-          }`}
-        >
-          <h2 className="text-2xl sm:text-3xl font-bold text-accent-primary dark:text-accent-secondary mb-3 text-center">
-            Projects
-          </h2>
-          <p className="text-text-main/60 dark:text-dark-text/50 text-sm sm:text-base text-center mb-8 max-w-2xl mx-auto">
-            A selection of mining engineering projects spanning open-pit, underground, and consulting engagements.
-          </p>
-        </div>
+  <div className="max-w-7xl mx-auto">
+    {/* Remove useInView for the title/description */}
+    <div className="text-center mb-8">
+      <h2 className="text-2xl sm:text-3xl font-bold text-accent-primary dark:text-accent-secondary mb-3">
+        Projects
+      </h2>
+      <p className="text-text-main/60 dark:text-dark-text/50 text-sm sm:text-base max-w-2xl mx-auto">
+        A selection of mining engineering projects spanning open-pit, underground, and consulting engagements.
+      </p>
+    </div>
 
-        {/* Category Filters */}
-        {categories.length > 2 && (
-          <div className="flex flex-wrap justify-center gap-2 mb-8">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={`px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 min-h-[44px] ${
-                  activeCategory === cat
-                    ? 'bg-accent-primary dark:bg-accent-secondary text-white'
-                    : 'bg-bg-secondary dark:bg-dark-bg-secondary text-text-main/60 dark:text-dark-text/50 hover:bg-accent-secondary/10'
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-        )}
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {filtered.map((project) => (
-            <ProjectCard key={project.id} project={project} />
+    {/* Keep useInView for the rest of the content */}
+    <div
+      ref={ref}
+      className={`transition-all duration-700 ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+      }`}
+    >
+      {/* Category Filters and Project Cards */}
+      {categories.length > 2 && (
+        <div className="flex flex-wrap justify-center gap-2 mb-8">
+          {categories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => setActiveCategory(cat)}
+              className={`px-4 py-2 text-sm font-medium rounded-full transition-all duration-200 min-h-[44px] ${
+                activeCategory === cat
+                  ? 'bg-accent-primary dark:bg-accent-secondary text-white'
+                  : 'bg-bg-secondary dark:bg-dark-bg-secondary text-text-main/60 dark:text-dark-text/50 hover:bg-accent-secondary/10'
+              }`}
+            >
+              {cat}
+            </button>
           ))}
         </div>
+      )}
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {filtered.map((project) => (
+          <ProjectCard key={project.id} project={project} />
+        ))}
       </div>
-    </section>
+    </div>
+  </div>
+</section>
   );
 }
