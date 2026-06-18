@@ -1,4 +1,3 @@
-```tsx
 'use client';
 
 import { useState } from 'react';
@@ -42,11 +41,12 @@ export default function PostCard({ post }: PostCardProps) {
   const videos = post.video_links || [];
 
   const linkifyOptions = {
-    target: '_blank',
-    rel: 'noopener noreferrer',
-    className:
-      'text-accent-primary dark:text-accent-secondary underline break-all hover:opacity-80 transition-opacity',
-  };
+  target: '_blank',
+  rel: 'noopener noreferrer',
+  defaultProtocol: 'https',
+  className:
+    'font-medium text-accent-primary dark:text-accent-secondary underline break-all hover:opacity-80 transition-opacity',
+};
 
   return (
     <article className="bg-white dark:bg-dark-bg-secondary rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden border border-bg-secondary/50 dark:border-dark-bg/50">
@@ -154,4 +154,3 @@ export default function PostCard({ post }: PostCardProps) {
     </article>
   );
 }
-```
