@@ -41,9 +41,9 @@ function ProjectCard({ project }: { project: Project }) {
         </div>
       )}
       <div className="p-5 sm:p-6">
-        <h3 className="text-lg font-semibold text-accent-primary dark:text-white mb-2">
-          {project.title}
-        </h3>
+        <h2 className="text-2xl sm:text-3xl font-bold text-red-500 mb-3 text-center">
+  Projects
+</h2>
         {(project.start_date || project.end_date) && (
           <div className="flex items-center gap-1.5 text-xs text-text-main/50 dark:text-dark-text/40 mb-3">
             <Calendar className="w-3.5 h-3.5" />
