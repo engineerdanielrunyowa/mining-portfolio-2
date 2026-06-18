@@ -64,10 +64,10 @@ export default function Specialisations({ demoMode }: SpecialisationsProps) {
               className={`bg-white dark:bg-dark-bg-secondary rounded-xl p-6 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 border border-bg-secondary/50 dark:border-dark-bg/50 ${
                 isVisible
                   ? 'opacity-100 translate-y-0'
-                  : 'opacity-0 translate-y-10'
+                  : 'opacity-100 translate-y-0'
               }`}
               style={{
-                transitionDelay: isVisible ? `${index * 100}ms` : '0ms',
+                transitionDelay: isVisible ? `${index * 100}ms` : '${index * 100}ms',
               }}
             >
               <div className="w-12 h-12 rounded-lg bg-accent-secondary/10 flex items-center justify-center mb-4">
