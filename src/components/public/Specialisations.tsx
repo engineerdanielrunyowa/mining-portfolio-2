@@ -46,7 +46,7 @@ export default function Specialisations({ demoMode }: SpecialisationsProps) {
         <div
           ref={ref}
           className={`transition-all duration-700 ${
-            isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+            isVisible ? 'opacity-100 translate-y-0' : 'opacity-100 translate-y-0'
           }`}
         >
           <h2 className="text-2xl sm:text-3xl font-bold text-accent-primary dark:text-accent-secondary mb-3 text-center">
