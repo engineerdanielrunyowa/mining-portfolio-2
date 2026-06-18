@@ -123,7 +123,7 @@ export default function Projects({ demoMode }: ProjectsProps) {
             Projects
           </h2>
           <p className="text-text-main/60 dark:text-dark-text/50 text-sm sm:text-base text-center mb-8 max-w-2xl mx-auto">
-            A selection of mining engineering projects spanning open-pit, underground, and consulting engagements.
+            Selected mining engineering projects to which I have contributed
           </p>
         </div>
 
