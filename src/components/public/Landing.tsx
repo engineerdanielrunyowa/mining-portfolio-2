@@ -117,9 +117,9 @@ export default function Landing({ profile }: LandingProps) {
             {/* About / Bio — combined with landing */}
             {profile.bio && (
               <div className="hidden md:block mb-6">
-                <p className="text-sm text-white/60 leading-relaxed line-clamp-3">
-                  {profile.bio.split('\n')[0]}
-                </p>
+                <p className="text-sm text-white/60 leading-relaxed whitespace-pre-line">
+  {profile.bio}
+</p>
               </div>
             )}
 
