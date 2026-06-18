@@ -44,7 +44,7 @@ export default function PostCard({ post }: PostCardProps) {
           <img
             src={images[currentImage]}
             alt={`Post image ${currentImage + 1}`}
-            className="w-full max-h-[500px] object-cover"
+            className="w-full h-auto object-contain"
             loading="lazy"
           />
           {images.length > 1 && (
