@@ -119,9 +119,9 @@ export default function Projects({ demoMode }: ProjectsProps) {
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
         >
-          <h2 className="text-2xl sm:text-3xl font-bold text-red-500 mb-3 text-center">
-  Projects
-</h2>
+          <h2 className="text-2xl sm:text-3xl font-bold text-accent-primary dark:text-accent-secondary mb-3 text-center">
+            Projects
+          </h2>
           <p className="text-text-main/60 dark:text-dark-text/50 text-sm sm:text-base text-center mb-8 max-w-2xl mx-auto">
             A selection of mining engineering projects spanning open-pit, underground, and consulting engagements.
           </p>
